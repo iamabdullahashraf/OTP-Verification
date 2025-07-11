@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>OTP Verification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="$event.preventDefault()">
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input [(ngModel)]="phoneNumber" name="phoneNumber" type="tel"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="button" (click)="sendOtp()" [disabled]="loading">Send OTP</ion-button>
+
+    <div id="recaptcha-container"></div>
+
+    <ng-container *ngIf="verificationSent">
+      <ion-item class="ion-margin-top">
+        <ion-label position="floating">Enter OTP</ion-label>
+        <ion-input [(ngModel)]="otp" name="otp" type="text"></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="button" class="ion-margin-top" (click)="verifyOtp()" [disabled]="loading">Verify OTP</ion-button>
+    </ng-container>
+  </form>
+</ion-content>

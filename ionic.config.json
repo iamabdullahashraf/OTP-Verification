@@ -1,0 +1,7 @@
+{
+  "name": "MyOTP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

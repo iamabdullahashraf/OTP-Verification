@@ -1,0 +1,130 @@
+<ion-content class="otp-container">
+  <!-- Background Animation -->
+  <div class="animated-bg">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+    <div class="circle circle-4"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="logo-container">
+        <div class="logo-icon">🔐</div>
+        <h1 class="app-title">OTP Verification</h1>
+        <p class="app-subtitle">Secure & Fast Authentication</p>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="form-card">
+      <div class="card-header">
+        <div class="step-indicator">
+          <div class="step" [class.active]="!verificationSent">
+            <div class="step-number">1</div>
+            <span>Phone</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step" [class.active]="verificationSent">
+            <div class="step-number">2</div>
+            <span>Verify</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Phone Number Section -->
+        <div class="input-section" *ngIf="!verificationSent">
+          <div class="section-title">
+            <h2>Enter Your Phone Number</h2>
+            <p>We'll send you a verification code</p>
+          </div>
+
+          <div class="input-group">
+            <ion-input
+              [(ngModel)]="userInput"
+              placeholder="Enter phone number or email"
+              inputmode="text"
+              type="text"
+              clearInput="true"
+              aria-label="Phone number or email"
+              class="custom-input"
+              fill="solid">
+            </ion-input>
+          </div>
+
+          <ion-button
+            (click)="sendOtp()"
+            expand="block"
+            shape="round"
+            class="primary-button"
+            [disabled]="loading">
+            <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+            <span *ngIf="!loading">Send OTP</span>
+            <span *ngIf="loading">Sending...</span>
+          </ion-button>
+        </div>
+
+        <!-- OTP Verification Section -->
+        <div class="input-section" *ngIf="verificationSent">
+          <div class="section-title">
+            <h2>Enter Verification Code</h2>
+            <p>Code sent to {{phoneNumber}}</p>
+            <button class="edit-number" (click)="verificationSent = false">Edit Number</button>
+          </div>
+
+          <div class="input-group">
+           <ion-input
+  [(ngModel)]="otp"
+  placeholder="Enter 6-digit OTP"
+  type="text"
+  inputmode="numeric"
+  maxlength="6"
+  clearInput="true"
+  aria-label="OTP"
+  class="custom-input"
+  fill="solid">
+</ion-input>
+          </div>
+
+          <ion-button
+            (click)="verifyOtp()"
+            expand="block"
+            shape="round"
+            class="success-button"
+            [disabled]="loading">
+            <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+            <span *ngIf="!loading">Verify OTP</span>
+            <span *ngIf="loading">Verifying...</span>
+          </ion-button>
+
+          <div class="resend-section">
+            <p>Didn't receive code?</p>
+            <button class="resend-btn" (click)="sendOtp()">Resend OTP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+      <div class="feature-item">
+        <div class="feature-icon">🛡️</div>
+        <span>Secure</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <span>Fast</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <span>Private</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- reCAPTCHA Container -->
+  <div id="recaptcha-container" class="recaptcha-container"></div>
+</ion-content>
